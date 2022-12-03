@@ -1,13 +1,7 @@
 
 import pandas as pd
 
-import spacy
 import streamlit as st
-from spacy import displacy
-from spacy.lang.en.stop_words import STOP_WORDS
-from string import punctuation
-from collections import Counter
-from heapq import nlargest
 from sentence_transformers import SentenceTransformer, util
 from tqdm import tqdm
 
@@ -45,7 +39,6 @@ df_combined_1 = pd.merge(df_combined, seoul_list, how="left", left_on=["hotel_na
 import torch
 
 queries = st.text_input("Seoul Hotel Search :")
-st.markdown("you searched:", queries)
 
 top_k = min(3, len(corpus))
 query_embedding = embedder.encode(queries, convert_to_tensor=True)
@@ -54,8 +47,8 @@ cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
 top_results = torch.topk(cos_scores, k=top_k)
 
 if queries != '':
-    print("Search:", "'"+queries+"'")
-    print("\nHotel Recommendations:", "\n")
+    st.write("Search:", "'"+queries+"'")
+    st.write("\nHotel Recommendations:", "\n")
     
     for score, idx in zip(top_results[0], top_results[1]):
       row_dict = df_combined_1.loc[df_combined_1['all_review']== corpus[idx]]
