@@ -1,12 +1,9 @@
 
 import pandas as pd
 
-seoul_list = pd.read_csv('HotelListInSeoul__en2019100120191005.csv')
-seoul_rev = pd.read_csv('hotelReviewsInSeoul__en2019100120191005.csv')
-
-combined = pd.merge(seoul_rev, seoul_list, how="left", left_on=["hotelUrl"], right_on=["url"])
 
 import spacy
+import kaggle
 import streamlit as st
 from spacy import displacy
 from spacy.lang.en.stop_words import STOP_WORDS
@@ -15,6 +12,12 @@ from collections import Counter
 from heapq import nlargest
 from sentence_transformers import SentenceTransformer, util
 from tqdm import tqdm
+
+seoul_list = pd.read_csv('HotelListInSeoul__en2019100120191005.csv')
+seoul_rev = pd.read_csv('hotelReviewsInSeoul__en2019100120191005.csv')
+
+combined = pd.merge(seoul_rev, seoul_list, how="left", left_on=["hotelUrl"], right_on=["url"])
+
 
 df_combined = combined.sort_values(['hotel_name']).groupby('hotel_name', sort=False).review_body.apply(''.join).reset_index(name='all_review')
 
