@@ -7,6 +7,7 @@ seoul_rev = pd.read_csv('hotelReviewsInSeoul__en2019100120191005.csv')
 combined = pd.merge(seoul_rev, seoul_list, how="left", left_on=["hotelUrl"], right_on=["url"])
 
 import spacy
+import streamlit as st
 from spacy import displacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
@@ -42,7 +43,7 @@ df_combined_1 = pd.merge(df_combined, seoul_list, how="left", left_on=["hotel_na
 
 import torch
 
-queries = input ("Seoul Hotel Search :")
+queries = st.text_input("Seoul Hotel Search :")
 print(queries)
 
 top_k = min(3, len(corpus))

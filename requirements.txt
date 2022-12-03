@@ -1,4 +1,5 @@
 spacy
+streamlit
 sentence_transformers
 tqdm
 regex==2022.6.2
