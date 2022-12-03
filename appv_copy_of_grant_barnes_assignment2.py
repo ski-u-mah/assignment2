@@ -45,7 +45,7 @@ df_combined_1 = pd.merge(df_combined, seoul_list, how="left", left_on=["hotel_na
 import torch
 
 queries = st.text_input("Seoul Hotel Search :")
-st.markdown(queries)
+st.markdown("you searched:", queries)
 
 top_k = min(3, len(corpus))
 query_embedding = embedder.encode(queries, convert_to_tensor=True)
@@ -53,20 +53,21 @@ query_embedding = embedder.encode(queries, convert_to_tensor=True)
 cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
 top_results = torch.topk(cos_scores, k=top_k)
 
-print("Search:", "'"+queries+"'")
-print("\nHotel Recommendations:", "\n")
-
-for score, idx in zip(top_results[0], top_results[1]):
-  row_dict = df_combined_1.loc[df_combined_1['all_review']== corpus[idx]]
-
-  st.write(row_dict['hotel_name'].to_string(index=False))
-  st.write("(Score: {:.4f})".format(score))
-
-  st.write("Hotel Summary:")
-  st.write("  City:",row_dict['locality'].to_string(index=False))
-  st.write("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
-  st.write("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
-  st.write("  URL:",row_dict['url'].to_string(index=False), "\n")
+if queries != '':
+    print("Search:", "'"+queries+"'")
+    print("\nHotel Recommendations:", "\n")
+    
+    for score, idx in zip(top_results[0], top_results[1]):
+      row_dict = df_combined_1.loc[df_combined_1['all_review']== corpus[idx]]
+    
+      st.write(row_dict['hotel_name'].to_string(index=False))
+      st.write("(Score: {:.4f})".format(score))
+    
+      st.write("Hotel Summary:")
+      st.write("  City:",row_dict['locality'].to_string(index=False))
+      st.write("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
+      st.write("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
+      st.write("  URL:",row_dict['url'].to_string(index=False), "\n")
 
 #!pip freeze > requirements.txt
 
