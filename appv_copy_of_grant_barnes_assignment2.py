@@ -44,7 +44,7 @@ df_combined_1 = pd.merge(df_combined, seoul_list, how="left", left_on=["hotel_na
 import torch
 
 queries = st.text_input("Seoul Hotel Search :")
-print(queries)
+st.markdown(queries)
 
 top_k = min(3, len(corpus))
 query_embedding = embedder.encode(queries, convert_to_tensor=True)
@@ -58,16 +58,21 @@ print("\nHotel Recommendations:", "\n")
 for score, idx in zip(top_results[0], top_results[1]):
   row_dict = df_combined_1.loc[df_combined_1['all_review']== corpus[idx]]
 
-  print(row_dict['hotel_name'].to_string(index=False))
-  print("(Score: {:.4f})".format(score))
+  xa = str(row_dict['hotel_name'].to_string(index=False))
+  st.markdown(xa)
+  xb = str("(Score: {:.4f})".format(score))
+  st.markdown(xb)
 
-  print("Hotel Summary:")
-  print("  City:",row_dict['locality'].to_string(index=False))
-  print("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
-  print("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
-  print("  URL:",row_dict['url'].to_string(index=False), "\n")
-
-df_combined_1
+  xc = str("Hotel Summary:")
+  st.markdown(xc)
+  xd = str("  City:",row_dict['locality'].to_string(index=False))
+  st.markdown(xd)
+  xe = str("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
+  st.markdown(xe)
+  xf = str("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
+  st.markdown(xf)
+  xg = str("  URL:",row_dict['url'].to_string(index=False), "\n")
+  st.markdown(xg)
 
 #!pip freeze > requirements.txt
 
