@@ -58,21 +58,14 @@ print("\nHotel Recommendations:", "\n")
 for score, idx in zip(top_results[0], top_results[1]):
   row_dict = df_combined_1.loc[df_combined_1['all_review']== corpus[idx]]
 
-  xa = str(row_dict['hotel_name'].to_string(index=False))
-  st.markdown(xa)
-  xb = str("(Score: {:.4f})".format(score))
-  st.markdown(xb)
+  st.write(row_dict['hotel_name'].to_string(index=False))
+  st.write("(Score: {:.4f})".format(score))
 
-  xc = str("Hotel Summary:")
-  st.markdown(xc)
-  xd = str("  City:",row_dict['locality'].to_string(index=False))
-  st.markdown(xd)
-  xe = str("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
-  st.markdown(xe)
-  xf = str("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
-  st.markdown(xf)
-  xg = str("  URL:",row_dict['url'].to_string(index=False), "\n")
-  st.markdown(xg)
+  st.write("Hotel Summary:")
+  st.write("  City:",row_dict['locality'].to_string(index=False))
+  st.write("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
+  st.write("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
+  st.write("  URL:",row_dict['url'].to_string(index=False), "\n")
 
 #!pip freeze > requirements.txt
 
