@@ -2,7 +2,6 @@
 import pandas as pd
 
 import spacy
-import kaggle
 import streamlit as st
 from spacy import displacy
 from spacy.lang.en.stop_words import STOP_WORDS
@@ -11,9 +10,6 @@ from collections import Counter
 from heapq import nlargest
 from sentence_transformers import SentenceTransformer, util
 from tqdm import tqdm
-
-! kaggle datasets download -d hamzafarooq50/hotel-listings-and-reviews/HotelListInSeoul__en2019100120191005.csv
-! unzip hotel-listings-and-reviews.zip
 
 seoul_list = pd.read_csv('HotelListInSeoul__en2019100120191005.csv')
 seoul_rev = pd.read_csv('hotelReviewsInSeoul__en2019100120191005.csv')
