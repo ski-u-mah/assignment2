@@ -7,7 +7,6 @@ seoul_rev = pd.read_csv('hotelReviewsInSeoul__en2019100120191005.csv')
 combined = pd.merge(seoul_rev, seoul_list, how="left", left_on=["hotelUrl"], right_on=["url"])
 
 import spacy
-nlp = spacy.load("en_core_web_sm")
 from spacy import displacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
