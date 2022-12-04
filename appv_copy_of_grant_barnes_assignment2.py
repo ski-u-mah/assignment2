@@ -47,8 +47,8 @@ cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
 top_results = torch.topk(cos_scores, k=top_k)
 
 if queries != '':
-    st.write("Search:", "'"+queries+"'")
-    st.write("\nHotel Recommendations:", "\n")
+    st.write("Your search:", "'"+queries+"'")
+    st.markdown("\nHotel Recommendations:")
     
     for score, idx in zip(top_results[0], top_results[1]):
       row_dict = df_combined_1.loc[df_combined_1['all_review']== corpus[idx]]
@@ -61,6 +61,7 @@ if queries != '':
       st.write("  Rating:",row_dict['tripadvisor_rating'].to_string(index=False))
       st.write("  Price/Night:",row_dict['price_per_night'].to_string(index=False))
       st.write("  URL:",row_dict['url'].to_string(index=False), "\n")
+      st.write(" ")
 
 #!pip freeze > requirements.txt
 
